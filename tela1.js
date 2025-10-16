@@ -1,26 +1,52 @@
-url = "https://rickandmortyapi.com/api/character/?page=1"
+const url = "https://rickandmortyapi.com/api/character/?page=1"
 
 
 async function call_api(url) {
-    personagem = await fetch(url)
-    data = await personagem.json()
-    results = await data.results
-    return data.results
+    const response = await fetch(url)
+    console.log(response)
+    if (response.status == "200") {
+    const data = await response.json()
+    const persons = await data.results
+    return persons
+    }
+    
 }
 
-call_api(url)
 
-function card(persons) {
-    const container = document.getElementById("all_container")
-    results.forEach(element => {
-        console.log(results)
-        const cadastro = document.createElement("div")
-        container.appendChild(cadastro)
+async function card() {
+    let persons = await call_api(url)
+    
+    const all_container = document.getElementById("all_container")
+    persons.forEach(element => {
+        console.log(element)
+        const box = document.createElement("div")
+        box.classList.add("box")
+        
+        
+        let name = document.createElement("h2")
+        name.textContent = element.name
 
         let img = document.createElement("img")
-        img.src = element.results.image
+        img.classList.add("img")
+        img.src = element.image
 
-        cadastro.appendChild(img)
+        let specie = document.createElement("h3")
+        specie.textContent = element.species
 
+        box.appendChild(img)
+        box.appendChild(name)
+        box.appendChild(specie)
+        
+        all_container.appendChild(box)
+        
+        
+        
     });
 }
+
+card()
+
+let link = document.querySelectorAll("box") 
+link.addeventlistener("click", function(){
+    window.location
+})
