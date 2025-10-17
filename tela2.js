@@ -1,52 +1,47 @@
-const url = `https://rickandmortyapi.com/api/character/${id}`
 
 
+// Pega oque vem depois da ?
+const id_url = new URLSearchParams (window.location.search);
 
-async function call_api(url) {
-    const response = await fetch(url)
-    console.log(response)
-    if (response.status == 200) {
-    const data = await response.json()
-    const persons = await data.results
-    return persons
-    }
-    
+const id = id_url.get("id");
+
+
+// Busca o personagem pelo ID
+async function getCharacter(id) {
+  const response = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+  const data = await response.json();
+  return data;
 }
 
-async function get_id() {
-    persons.forEach(runner => {
-        let id = runner.id
-        console.log(runner.id)
-    })    
+async function showCharacter() {
+  const character = await getCharacter(id);
+
+  const container = document.getElementById("container");
+
+  const box = document.createElement("div");
+  box.classList.add("char-box");
+
+  const gender = document.createElement("h2")
+  gender.textContent = character.gender;
+
+  const img = document.createElement("img");
+  img.src = character.image;
+
+  const name = document.createElement("h1");
+  name.textContent = character.name;
+
+  const specie = document.createElement("h2");
+  specie.textContent = "Espécie: " + character.species;
+
+  const status = document.createElement("h2");
+  status.textContent = "Status: " + character.status;
+
+  box.appendChild(img);
+  box.appendChild(name);
+  box.appendChild(specie);
+  box.appendChild(status);
+
+  container.appendChild(box);
 }
 
-async function card() {
-    let persons = await call_api(url)
-    
-    const all_container = document.getElementById("all_container")
-    persons.forEach(element => {
-        console.log(element)
-        const box = document.createElement("div")
-        box.classList.add("box")
-
-        let name = document.createElement("h2")
-        name.textContent = element.name
-
-        let img = document.createElement("img")
-        img.classList.add("img")
-        img.src = element.image
-
-        let specie = document.createElement("h3")
-        specie.textContent = element.species
-
-        box.appendChild(img)
-        box.appendChild(name)
-        box.appendChild(specie)
-
-        all_container.appendChild(box)
-        
-    });
-}
-
-
-card()
+showCharacter();

@@ -21,3 +21,7 @@ html {
     justify-content: flex-start;
     margin: 0 auto;
 }
+
+#back {
+    padding: 0.1rem;
+}
