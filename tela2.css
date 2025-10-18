@@ -25,3 +25,14 @@ html {
 #back {
     padding: 0.1rem;
 }
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3rem auto;
+}
+
+.img {
+    border-radius: 1000px;
+}
