@@ -63,3 +63,18 @@ html {
     object-fit: cover;
     border-radius: 5px;
 }   
+
+#function_buttons {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 3rem;
+}
+
+#next_page {
+    padding: 1rem;
+}
+#last_page {
+    padding: 1rem;
+}
