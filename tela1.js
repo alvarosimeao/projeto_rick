@@ -6,7 +6,7 @@ let url = `https://rickandmortyapi.com/api/character/`
 
 
 async function call_api(url) {
-    document.getElementById("all_container").innerHTML = ''
+    document.getElementById("all_container")
     const response = await fetch(url)
     
     if (response.status == 200) {
@@ -58,38 +58,37 @@ async function card() {
 
 card()
 
-// Botao de pular e voltar pagina
-
-async function page_next() {
-  cont++;
-  url = `https://rickandmortyapi.com/api/character/?page=${cont}`;
-  await card();
-}
-async function page_last() {
-  cont--;
-  url = `https://rickandmortyapi.com/api/character/?page=${cont}`;
-  await card();
-}
-
-
-//linkar a funcao nos butoes 
-
-document.getElementById("next_page").addEventListener("click", page_next);
-document.getElementById("last_page").addEventListener("click", page_last);
-
-
 //Extrair o nome no input
 
 async function search_by_name() {
     const input_name = document.getElementById("search")
     const str_input = input_name.value.trim().toLowerCase();
-    let url_input = `${url}?name=${str_input}`
-
     url = `https://rickandmortyapi.com/api/character/?name=${str_input}`;
-    await card();
-    input_name.value = ""
+    document.getElementById("all_container").innerHTML = ''
+    await card();   
 
 }
 
 document.getElementById("button").addEventListener("click", search_by_name )
 
+
+// Botao de NEW FILE         
+
+async function page_next() {
+  cont++;
+  const input_name = document.getElementById("search")
+  const str_input = input_name.value.trim().toLowerCase();
+
+  // se o usuário digitou algo, adiciona o filtro de nome
+
+  if (str_input && str_input.trim() != "") {
+    url = `https://rickandmortyapi.com/api/character/?page=${cont}&name=${str_input}`;
+  } else {
+    url = `https://rickandmortyapi.com/api/character/?page=${cont}`;
+  }
+  await card();
+}
+
+//linkar a funcao nos butoes 
+
+document.getElementById("next_page").addEventListener("click", page_next);

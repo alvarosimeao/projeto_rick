@@ -1,16 +1,34 @@
+
 // Pega oque vem depois da ?
 const id_url = new URLSearchParams (window.location.search);
 
-// Pega so o valr recebido da id_url
+// Pega so o valr recebido da id_url e do episodio
 const vlr_id = id_url.get("id");
+const vlr_episode = id_url.get("episode")
+url_episodes = `https://rickandmortyapi.com/api/episode/${vlr_id}`
 
 
 // Busca o personagem pelo ID
-async function getCharacter(vlr_id) {
-  const response = await fetch(`https://rickandmortyapi.com/api/character/${vlr_id}`);
-  const data = await response.json();
-  return data;
+// async function getCharacter(vlr_id) {
+//   const response = await fetch(`https://rickandmortyapi.com/api/character/${vlr_id}`);
+//   const data = await response.json();
+//   return data;
+// }
+
+// Busca o episodio do personagem
+async function get_episode(url_episodes) {
+  const response = await fetch(url_episodes)
+  const data = await response.json()
+  return data.episode 
+
 }
+
+async function get_episodes(url_episodes) {
+  episodes = await get_episode(url_episodes)
+  console.log(episodes)
+}
+
+
 
 async function showCharacter() {
   const character = await getCharacter(vlr_id);
@@ -40,13 +58,13 @@ async function showCharacter() {
   status.textContent = "Status: " + character.status;
 
   const type = document.createElement("h2");
-  type.textContent = "Tipo: " + character.type
+  type.textContent = "Tipo: " + character.type;
   
   const location = document.createElement("h2");
-  location.textContent = "Localizaçao: " + character.location.name
+  location.textContent = "Localizaçao: " + character.location;
 
-  // const episode = document.createElement("h2")
-  // episode.textContent = "Episodio(s): " + character.episode
+  const episode = document.createElement("h2")
+  episode.textContent = "Episodio(s): " + 
 
   box.appendChild(img);
   box.appendChild(name);
@@ -56,7 +74,7 @@ async function showCharacter() {
   box.appendChild(origin)
   box.appendChild(location)
   box.appendChild(type)
-  // box.appendChild(episode)
+  box.appendChild(episode)
 
   container.appendChild(box);
 }
