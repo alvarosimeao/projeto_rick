@@ -65,6 +65,6 @@ async function showCharacter() {
 showCharacter();
 
 back.addEventListener("click", function()  {
-        window.location.href = "tela1.html"
+        window.location.href = "index.html"
 
     })
